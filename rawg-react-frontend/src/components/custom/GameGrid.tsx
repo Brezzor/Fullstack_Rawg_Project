@@ -1,43 +1,23 @@
-import { useEffect, useState } from "react"
-import apiClient from "@/services/api-client"
-import { For, Grid, GridItem } from "@chakra-ui/react"
-
-interface Game {
-    id: number
-    name: string
-}
-
-interface GameResponse {
-    count: number
-    results: Game[]
-}
+import useGames from "@/hooks/useGames"
+import { For, SimpleGrid, Spinner, Text, VStack } from "@chakra-ui/react"
+import GameCard from "./GameCard"
 
 const GameGrid = () => {
-    const [games, setGames] = useState<Game[]>([])
-    const [error, setError] = useState('')
-
-    useEffect(() => {
-        apiClient.get<GameResponse>('/games')
-            .then((res) => {
-                setGames(res.data.results)
-            })
-            .catch((err) => {
-                setError(err.message)
-                console.error(err)
-            })
-    }, [])
+    const { games, error } = useGames()
 
     return (
-        <Grid>
-            <For each={games} fallback={<p>Loading...</p>}>
+        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} gap={4} padding={2}>
+            <For each={games} fallback={
+                <VStack>
+                    <Spinner/>
+                    <Text>Loading games...</Text>
+                </VStack>}>
                 {(game) => (
-                    <GridItem key={game.id} padding={2} margin={2}>
-                        {game.name}
-                    </GridItem>
+                    <GameCard game={game} />
                 )}
             </For>
             {error && <p>Error: {error}</p>}
-        </Grid>
+        </SimpleGrid>
     )
 }
 
