@@ -4,7 +4,7 @@ import logo from '@/assets/logo.png'
 
 const NavBar = () => {
     return (
-        <HStack justifyContent={'space-between'}>
+        <HStack justifyContent={'space-between'} padding={'0.8rem'}>
             <Image src={logo} height={'40px'}/>
             <ColorModeButton />            
         </HStack>
