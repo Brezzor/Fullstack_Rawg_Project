@@ -1,20 +1,23 @@
 import useGenres from "@/hooks/useGenres"
-import { Box, For } from "@chakra-ui/react"
+import { List, For, Image, HStack, Text} from "@chakra-ui/react"
 
 const GenreList = () => {
-    const { genres, error } = useGenres()
+    const { data: genres, error } = useGenres()
     
     return (
         <div>
-            <Box as={'ul'} listStyleType={'none'} padding={2} margin={0}>
+            <List.Root as={'ul'}>
                 <For each={genres}>
                     {(genre) => (
-                        <Box as={'li'} key={genre.id}>
-                            {genre.name}
-                        </Box>
+                        <List.Item key={genre.id} paddingStart={2} paddingY={2} fontWeight={'bold'} fontSize={16}>
+                            <HStack>
+                                <Image src={genre.image_background} height={10} aspectRatio={1/1}></Image>
+                                <Text>{genre.name}</Text>
+                            </HStack>                            
+                        </List.Item>
                     )}
                 </For>
-            </Box>
+            </List.Root>
             {error && <p>Error: {error}</p>}
         </div>
     )

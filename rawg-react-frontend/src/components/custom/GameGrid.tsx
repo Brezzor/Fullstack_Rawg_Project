@@ -1,10 +1,10 @@
 import useGames from "@/hooks/useGames"
-import { For, SimpleGrid } from "@chakra-ui/react"
+import { For, SimpleGrid, Text } from "@chakra-ui/react"
 import GameCard from "@/components/custom/GameCard"
 import GameCardSkeleton from "@/components/custom/GameCardSkeleton"
 
 const GameGrid = () => {
-    const { games, error } = useGames()
+    const { data: games, error } = useGames()
     const skeletons = [...Array(20).keys()]
 
     return (
@@ -20,7 +20,7 @@ const GameGrid = () => {
                     <GameCard key={game.id} game={game}/>
                 )}
             </For>
-            {error && <p>Error: {error}</p>}
+            {error && <Text color={'red'}>Error: {error}</Text>}
         </SimpleGrid>
     )
 }

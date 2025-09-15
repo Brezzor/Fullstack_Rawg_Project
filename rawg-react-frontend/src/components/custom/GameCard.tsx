@@ -13,7 +13,7 @@ const GameCard = ({ game }: GameCardProps) => {
     return (
         <Card.Root borderRadius={"md"} overflow="hidden">
             <Card.Header padding={0}>
-                <Image src={getCroppedImageUrl(game.background_image)} aspectRatio={16/9} borderTopRadius={{base:'md'}}/>
+                <Image src={getCroppedImageUrl(game.background_image)} objectFit={'contain'} borderTopRadius={{base:'md'}}/>
             </Card.Header>
             <Card.Body>
                 <HStack justifyContent="space-between">
