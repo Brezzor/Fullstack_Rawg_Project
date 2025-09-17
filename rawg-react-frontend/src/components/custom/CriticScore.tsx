@@ -1,11 +1,26 @@
 import { Badge } from "@chakra-ui/react"
 
-const CriticScore = ({score}: {score:number}) => {
-    const color = score > 75 ? "green.500" : score > 50 ? "yellow.500" : "red.500";
-    const bgColor = score > 75 ? "green.800" : score > 50 ? "yellow.800" : "red.800";
-    
+const CriticScore = ({ score }: { score: number }) => {
+    let color: string;
+    if (score > 75) {
+        color = "green.500";
+    } else if (score > 50) {
+        color = "yellow.500";
+    } else {
+        color = "red.500";
+    }
+
+    let bgColor: string;
+    if (score > 75) {
+        bgColor = "green.800";
+    } else if (score > 50) {
+        bgColor = "yellow.800";
+    } else {
+        bgColor = "red.800";
+    }
+
     return (
-        <Badge border={"1px solid"} borderRadius={"full"} aspectRatio={1/1} fontWeight={"bold"} color={color} bgColor={bgColor}>{score}</Badge>
+        <Badge border={"1px solid"} rounded={"full"} aspectRatio={1} fontWeight={"bold"} color={color} bgColor={bgColor}>{score}</Badge>
     )
 }
 
