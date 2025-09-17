@@ -1,26 +1,27 @@
 import useGenres from "@/hooks/useGenres"
-import { List, For, Image, HStack, Text } from "@chakra-ui/react"
-import getCroppedImageUrl from "@/services/image-url-handler"
+import { Container, VStack, For } from "@chakra-ui/react"
+import GenreItem from "@/components/custom/GenreItem"
+import GenreSkeleton from "@/components/custom/GenreSkeleton"
 
 const GenreList = () => {
     const { data: genres, error } = useGenres()
+    const skeletons = [...Array(20).keys()]
 
     return (
-        <div>
-            <List.Root as={'ul'}>
-                <For each={genres}>
+        <Container>
+            <VStack alignItems="start">
+                <For each={genres} fallback={
+                    <For each={skeletons}>
+                        {(number) => <GenreSkeleton key={number} />}
+                    </For>
+                }>
                     {(genre) => (
-                        <List.Item key={genre.id} paddingStart={2} paddingY={2} fontWeight={'bold'} fontSize={16}>
-                            <HStack>
-                                <Image src={getCroppedImageUrl(genre.image_background)} boxSize={'32px'} rounded={'full'} aspectRatio={1}></Image>
-                                <Text>{genre.name}</Text>
-                            </HStack>
-                        </List.Item>
+                        <GenreItem key={genre.id} genre={genre} />
                     )}
                 </For>
-            </List.Root>
+            </VStack>
             {error && <p>Error: {error}</p>}
-        </div>
+        </Container>
     )
 }
 
