@@ -8,10 +8,12 @@
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "esnext",
-    "types": [],
-    // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
+    "types": [
+      "node"
+    ],
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "allowSyntheticDefaultImports": true,
     // and npm install -D @types/node
     // Other Outputs
     "sourceMap": true,
@@ -29,11 +31,18 @@
     // "noPropertyAccessFromIndexSignature": true,
     // Recommended Options
     "strict": true,
-    "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+    "esm": true,
+    "swc": false
+  },
 }

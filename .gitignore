@@ -2,3 +2,4 @@ rawg-react-frontend/package-lock.json
 **/package-lock.json
 .vscode/launch.json
 **/node_modules
+**/dist
