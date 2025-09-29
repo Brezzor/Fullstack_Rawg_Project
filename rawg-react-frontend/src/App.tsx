@@ -8,10 +8,13 @@ import { useState } from 'react'
 import type { Genre } from '@/hooks/useGenres'
 import PlatformSelector from '@/components/custom/PlatformSelector'
 import type { Platform } from '@/hooks/useGames'
+import type { Store } from '@/hooks/useStore'
+import StoreList from './components/custom/StoreList'
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null);
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
 
   return (
     <Grid
@@ -23,6 +26,7 @@ function App() {
       </GridItem>
       <GridItem display={{ base: 'none', lg: `block` }} area={'aside'}>
         <Container paddingInline={'1rem'}>
+          <StoreList onSelectStore={(store) => setSelectedStore(store)} selectedStore={selectedStore} />
           <PlatformSelector
             selectedPlatform={selectedPlatform}
             onSelectPlatform={(platform) => setSelectedPlatform(platform)}
@@ -33,7 +37,9 @@ function App() {
       <GridItem area={'main'}>
         <GameGrid
           selectedGenre={selectedGenre}
-          selectedPlatform={selectedPlatform} />
+          selectedPlatform={selectedPlatform}
+          selectedStore={selectedStore}
+        />
       </GridItem>
     </Grid>
   )

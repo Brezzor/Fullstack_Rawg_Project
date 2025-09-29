@@ -13,19 +13,15 @@ const GenreItem = ({ genre, onGenreClick, selectedGenre }: Props) => {
         <HStack width={'100%'}>
             <Image src={getCroppedImageUrl(genre.image_background)} boxSize={'32px'} rounded={'full'} aspectRatio={1}></Image>
             <Button
-                truncate
-                padding={0}
+                font={'lg'}
                 variant={'plain'}
                 onClick={() => onGenreClick(genre)}
             >
                 <Text
-                    truncate
-                    fontSize={"large"}
-                    fontWeight={'bolder'}
                     color={genre.id === selectedGenre?.id ? 'red' : 'gray'}
                     textDecorationLine={genre.id === selectedGenre?.id ? 'underline' : 'none'}
-                    textDecorationThickness={'3px'}
-                    textUnderlineOffset={'1px'}
+                    textDecorationThickness={'1px'}
+                    textUnderlineOffset={'5px'}
                 >
                     {genre.name}
                 </Text>
