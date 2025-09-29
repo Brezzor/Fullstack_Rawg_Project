@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("rawg-api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd89d545015664f642529af19518466132d993a4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6dd911bd76ddd3b2d52b77f834b6d86f66d8f119")]
 [assembly: System.Reflection.AssemblyProductAttribute("rawg-api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("rawg-api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
