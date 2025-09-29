@@ -9,16 +9,16 @@ interface GameCardProps {
     game: Game
 }
 
-const GameCard = ({ game }: GameCardProps) => {            
+const GameCard = ({ game }: GameCardProps) => {
     return (
-        <Card.Root borderRadius={"md"} overflow="hidden">
+        <Card.Root borderRadius={"md"} overflow="hidden" height={'100%'}>
             <Card.Header padding={0}>
-                <Image src={getCroppedImageUrl(game.background_image)} objectFit={'contain'} borderTopRadius={{base:'md'}}/>
+                <Image src={getCroppedImageUrl(game.background_image)} objectFit={'cover'} borderTopRadius={{ base: 'md' }} aspectRatio={16 / 9} />
             </Card.Header>
-            <Card.Body>
+            <Card.Body padding={'1rem'}>
                 <HStack justifyContent="space-between">
-                    <PlatformIconsList platforms={game.parent_platforms.map(p => p.platform)}/>
-                    <CriticScore score={game.metacritic}/>
+                    <PlatformIconsList platforms={game.parent_platforms.map(p => p.platform)} />
+                    <CriticScore score={game.metacritic} />
                 </HStack>
                 <Heading>{game.name}</Heading>
             </Card.Body>

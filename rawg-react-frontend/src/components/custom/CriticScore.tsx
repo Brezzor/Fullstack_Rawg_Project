@@ -1,4 +1,4 @@
-import { Badge } from "@chakra-ui/react"
+import { Badge, Text } from "@chakra-ui/react"
 
 const CriticScore = ({ score }: { score: number }) => {
     let color: string;
@@ -20,7 +20,19 @@ const CriticScore = ({ score }: { score: number }) => {
     }
 
     return (
-        <Badge border={"1px solid"} rounded={"full"} aspectRatio={1} fontWeight={"bold"} color={color} bgColor={bgColor}>{score}</Badge>
+        <Badge
+            border={"1px solid"}
+            rounded={"full"}
+            boxSize={'28px'}
+            aspectRatio={1}
+            fontWeight={"bold"}
+            color={color}
+            bgColor={bgColor}
+        >
+            <Text alignContent={'center'} textAlign={'center'} height={'100%'} width={'100%'}>
+                {score ?? "-"}
+            </Text>
+        </Badge>
     )
 }
 
