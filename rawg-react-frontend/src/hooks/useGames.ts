@@ -1,4 +1,6 @@
 import useData from "@/hooks/useData"
+import type { Genre } from "@/hooks/useGenres"
+import { useMemo } from "react"
 
 export interface Platform {
     id: number
@@ -14,6 +16,15 @@ export interface Game {
     metacritic: number
 }
 
-const useGames = () => useData<Game>('/games')
+const useGames = (selectedGenre: Genre | null) => {
+    const requestConfig = useMemo(
+        () => ({ params: { genres: selectedGenre?.id } }),
+        [selectedGenre?.id]
+    );
+    return useData<Game>(
+        '/games',
+        requestConfig
+    );
+}
 
 export default useGames

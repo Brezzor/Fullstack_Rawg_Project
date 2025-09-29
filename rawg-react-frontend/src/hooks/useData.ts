@@ -1,5 +1,5 @@
 import apiClient from "@/services/api-client"
-import { CanceledError } from "axios"
+import { CanceledError, type AxiosRequestConfig } from "axios"
 import { useEffect, useState } from "react"
 
 interface Response<Type> {
@@ -7,14 +7,17 @@ interface Response<Type> {
     results: Type[]
 }
 
-const useGames = <Type>(path:string) => {
+const useGames = <Type>(
+    path: string,
+    requestConfig?: AxiosRequestConfig
+) => {
     const [data, setData] = useState<Type[]>([])
-    const [error, setError] = useState('')    
+    const [error, setError] = useState('')
 
     useEffect(() => {
         const controller = new AbortController()
-        
-        apiClient.get<Response<Type>>(path, { signal: controller.signal })
+
+        apiClient.get<Response<Type>>(path, { signal: controller.signal, ...requestConfig },)
             .then((res) => {
                 setData(res.data.results)
             })
@@ -24,7 +27,7 @@ const useGames = <Type>(path:string) => {
                 console.error(err)
             })
         return () => controller.abort()
-    }, [path])
+    }, [path, requestConfig]);
 
     return { data, error }
 }
