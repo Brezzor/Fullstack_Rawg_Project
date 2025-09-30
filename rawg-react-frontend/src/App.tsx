@@ -11,10 +11,26 @@ import type { Platform } from '@/hooks/useGames'
 import type { Store } from '@/hooks/useStore'
 import StoreList from './components/custom/StoreList'
 
+export interface GameQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+  store: Store | null;
+}
+
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null);
-  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+
+  const handleSelectGenre = (genre: Genre | null) => {
+    setGameQuery((prev) => ({ ...prev, genre }));
+  };
+
+  const handleSelectPlatform = (platform: Platform | null) => {
+    setGameQuery((prev) => ({ ...prev, platform }));
+  };
+
+  const handleSelectStore = (store: Store | null) => {
+    setGameQuery((prev) => ({ ...prev, store }));
+  };
 
   return (
     <Grid
@@ -26,19 +42,23 @@ function App() {
       </GridItem>
       <GridItem display={{ base: 'none', lg: `block` }} area={'aside'}>
         <Container paddingInline={'1rem'}>
-          <StoreList onSelectStore={(store) => setSelectedStore(store)} selectedStore={selectedStore} />
-          <PlatformSelector
-            selectedPlatform={selectedPlatform}
-            onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+          <GenreList
+            onSelectGenre={handleSelectGenre}
+            selectedGenre={gameQuery.genre}
           />
-          <GenreList onSelectGenre={(genre) => setSelectedGenre(genre)} selectedGenre={selectedGenre} />
+          <StoreList
+            onSelectStore={handleSelectStore}
+            selectedStore={gameQuery.store}
+          />
         </Container>
       </GridItem>
       <GridItem area={'main'}>
+        <PlatformSelector
+          onSelectPlatform={handleSelectPlatform}
+          selectedPlatform={gameQuery.platform}
+        />
         <GameGrid
-          selectedGenre={selectedGenre}
-          selectedPlatform={selectedPlatform}
-          selectedStore={selectedStore}
+          gameQuery={gameQuery}
         />
       </GridItem>
     </Grid>

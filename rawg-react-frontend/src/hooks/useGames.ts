@@ -1,7 +1,6 @@
 import useData from "@/hooks/useData"
-import type { Genre } from "@/hooks/useGenres"
 import { useMemo } from "react"
-import type { Store } from "@/hooks/useStore"
+import type { GameQuery } from "@/App"
 
 export interface Platform {
     id: number
@@ -13,14 +12,22 @@ export interface Game {
     id: number
     name: string
     background_image: string
-    parent_platforms: { platform: Platform }[]
     metacritic: number
+    parent_platforms: { platform: Platform }[]
 }
 
-const useGames = (selectedGenre: Genre | null, selectedPlatform: Platform | null, selectedStore: Store | null) => {
+const useGames = (gameQuery: GameQuery) => {
     const requestConfig = useMemo(
-        () => ({ params: { genres: selectedGenre?.id, parent_platforms: selectedPlatform?.id, stores: selectedStore?.id } }),
-        [selectedGenre?.id, selectedPlatform?.id, selectedStore?.id]
+        () => (
+            {
+                params:
+                {
+                    genres: gameQuery.genre?.id,
+                    platforms: gameQuery.platform?.id,
+                    stores: gameQuery.store?.id
+                }
+            }),
+        [gameQuery]
     );
     return useData<Game>(
         '/games',
