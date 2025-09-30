@@ -2,6 +2,7 @@ import useGenres from "@/hooks/useGenres"
 import { VStack, For, Button, Heading } from "@chakra-ui/react"
 import GenreItem from "@/components/custom/GenreItem"
 import type { Genre } from "@/hooks/useGenres"
+import { useState } from "react";
 
 interface Props {
     onSelectGenre: (genre: Genre | null) => void;
@@ -9,7 +10,9 @@ interface Props {
 }
 
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
-    const { data: genres, error } = useGenres()
+    const { data: genres, error } = useGenres();
+    const [isExpanded, setIsExpanded] = useState(false);
+    const displayedGenres = isExpanded ? genres : genres.slice(0, 5);
 
     return (
         <div>
@@ -21,7 +24,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
                 >
                     <Heading>{selectedGenre?.name}</Heading>
                 </Button>
-                <For each={genres}>
+                <For each={displayedGenres}>
                     {(genre: Genre) => (
                         <GenreItem
                             key={genre.id}
@@ -31,6 +34,15 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
                         />
                     )}
                 </For>
+                <Button
+                    variant={'outline'}
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    display={genres.length > 5 ? 'block' : 'none'}
+                >
+                    <Heading>
+                        {isExpanded ? 'Show Less' : 'Show More'}
+                    </Heading>
+                </Button>
             </VStack>
             {error && <p>Error: {error}</p>}
         </div>

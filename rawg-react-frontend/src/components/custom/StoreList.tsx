@@ -1,6 +1,7 @@
 import useStore, { type Store } from "@/hooks/useStore"
 import getCroppedImageUrl from "@/services/image-url-handler"
 import { VStack, For, Text, HStack, Image, Button, Heading } from "@chakra-ui/react"
+import { useState } from "react";
 
 interface Prop {
     onSelectStore: (store: Store | null) => void;
@@ -9,6 +10,9 @@ interface Prop {
 
 const StoreList = ({ onSelectStore, selectedStore }: Prop) => {
     const { data: stores, error } = useStore()
+    const [isExpanded, setIsExpanded] = useState(false);
+    const displayedGenres = isExpanded ? stores : stores.slice(0, 5);
+
     return (
         <div>
             <VStack alignItems="start">
@@ -19,7 +23,7 @@ const StoreList = ({ onSelectStore, selectedStore }: Prop) => {
                 >
                     <Heading>{selectedStore?.name}</Heading>
                 </Button>
-                <For each={stores}>
+                <For each={displayedGenres}>
                     {(store) => (
                         <HStack>
                             <Image src={getCroppedImageUrl(store.image_background)} boxSize={'32px'} aspectRatio={1} rounded={'full'} />
@@ -39,6 +43,15 @@ const StoreList = ({ onSelectStore, selectedStore }: Prop) => {
                         </HStack>
                     )}
                 </For>
+                <Button
+                    variant={'outline'}
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    display={stores.length > 5 ? 'block' : 'none'}
+                >
+                    <Heading>
+                        {isExpanded ? 'Show Less' : 'Show More'}
+                    </Heading>
+                </Button>
             </VStack>
             {error && <p>Error: {error}</p>}
         </div>
