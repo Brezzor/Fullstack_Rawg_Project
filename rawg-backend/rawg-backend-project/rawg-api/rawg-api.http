@@ -1,6 +1,0 @@
-@rawg_api_HostAddress = http://localhost:5268
-
-GET {{rawg_api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
