@@ -3,6 +3,7 @@ rawg-react-frontend/package-lock.json
 .vscode/launch.json
 **/node_modules
 **/dist
+**/appsettings.*
 
 # Created by https://www.toptal.com/developers/gitignore/api/dotenv,csharp,dotnetcore
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotenv,csharp,dotnetcore
