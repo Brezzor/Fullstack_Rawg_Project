@@ -2,7 +2,7 @@
   "name": "seeder",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "node --loader ts-node/esm index.ts"
   },
@@ -11,12 +11,13 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "mysql2": "3.12.0",
     "reflect-metadata": "0.2.2",
     "typeorm": "0.3.21"
   },
   "devDependencies": {
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.6.1",
     "ts-node": "^10.9.2"
   }
 }
