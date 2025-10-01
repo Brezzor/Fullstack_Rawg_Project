@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using rawg_api.Models;
 
@@ -7,12 +8,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+var serverVersion = new MySqlServerVersion(new Version(9, 4, 0));
+
 builder.Services.AddDbContext<rawg_dbContext>(options =>
-{
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("Default"),
-        new MySqlServerVersion(new Version(9, 4, 0)));
-});
+    options
+        .UseMySql(builder.Configuration.GetConnectionString("Default"), serverVersion)
+        .LogTo(Console.WriteLine, LogLevel.Information)
+        .EnableSensitiveDataLogging()
+        .EnableDetailedErrors()
+);
+
+builder.Services.AddControllers()
+    .AddJsonOptions(option =>
+    {
+        option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
 
 var app = builder.Build();
 
@@ -24,10 +34,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", () =>
-{
-    return "Hello World!";
-})
-.WithName("Get");
+app.MapControllers();
 
 await app.RunAsync();
