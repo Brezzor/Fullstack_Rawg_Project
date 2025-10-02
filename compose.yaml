@@ -11,6 +11,8 @@ services:
       - "5173:5173"
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - VITE_RAWG_API_KEY=${VITE_RAWG_API_KEY}
+      - VITE_API_URL=${VITE_API_URL}
 
   api:
     image: rawgapi
