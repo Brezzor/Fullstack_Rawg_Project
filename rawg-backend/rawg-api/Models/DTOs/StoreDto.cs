@@ -5,12 +5,11 @@ namespace rawg_api.Models.DTOs;
 public class StoreDto
 {
     public int id { get; set; }
-
-    public StoreWrapperDto store { get; set; } = new StoreWrapperDto();
+    public string name { get; set; } = string.Empty;
+    public string? image_background { get; set; }
 }
 
 public class StoreWrapperDto
 {
-    public string name { get; set; } = string.Empty;
-    public string? image_background { get; set; }
+    public List<StoreDto> store { get; set; } = new List<StoreDto>();
 }

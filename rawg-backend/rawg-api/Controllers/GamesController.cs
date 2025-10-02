@@ -52,7 +52,8 @@ namespace rawg_api.Controllers
             {
                 gamesQuery = gamesQuery
                     .Where(game => game.stores
-                    .Any(store => store.id == stores.Value))
+                    .Any(storewrapper => storewrapper.store
+                    .Any(store => store.id == stores.Value)))
                     .ToList();
             }
 

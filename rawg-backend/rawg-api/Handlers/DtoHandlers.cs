@@ -14,7 +14,7 @@ namespace rawg_api.Handlers
                 metacritic = game.Metacritic,
                 parent_platforms = [.. game.ParentPlatformsIdParentPlatforms.Select(ParentPlatformDto)],
                 genres = [.. game.GenresIdGenres.Select(GenreDto)],
-                stores = [.. game.StoresIdStores.Select(StoreDto)]
+                stores = [.. game.StoresIdStores.Select(StoreWrapperDto)]
             };
 
         public static ParentPlatformDto ParentPlatformDto(ParentPlatform parentPlatform) =>
@@ -34,10 +34,16 @@ namespace rawg_api.Handlers
             new StoreDto
             {
                 id = store.IdStores,
-                store = new StoreWrapperDto
+                name = store.Name,
+                image_background = store.ImageBackground
+            };
+
+        public static StoreWrapperDto StoreWrapperDto(Store store) =>
+            new StoreWrapperDto
+            {
+                store = new List<StoreDto>
                 {
-                    name = store.Name,
-                    image_background = store.ImageBackground
+                    StoreDto(store)
                 }
             };
 

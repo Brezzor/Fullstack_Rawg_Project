@@ -10,5 +10,5 @@ public class GameDto
     public int? metacritic { get; set; }
     public List<ParentPlatformDto> parent_platforms { get; set; } = new List<ParentPlatformDto>();
     public List<GenreDto> genres { get; set; } = new List<GenreDto>();
-    public List<StoreDto> stores { get; set; } = new List<StoreDto>();
+    public List<StoreWrapperDto> stores { get; set; } = new List<StoreWrapperDto>();
 }

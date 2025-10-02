@@ -90,7 +90,7 @@ const CustomList = <T extends Item>({
                         </List.Item>
                     )}
                 </For>
-                <Button onClick={() => setIsExpanded(!isExpanded)} marginY={5}>
+                <Button display={items.length > 5 ? "block" : "none"} onClick={() => setIsExpanded(!isExpanded)} marginY={5}>
                     {isExpanded ? "Show Less" : "Show More"}
                 </Button>
             </List.Root>
