@@ -31,7 +31,8 @@ public partial class rawg_dbContext : DbContext
         {
             entity.HasKey(e => e.IdGames).HasName("PRIMARY");
 
-            entity.HasMany(d => d.GenresIdGenres).WithMany(p => p.GamesIdGames)
+            entity.HasMany(d => d.GenresIdGenres)
+                .WithMany(p => p.GamesIdGames)
                 .UsingEntity<Dictionary<string, object>>(
                     "GamesHasGenre",
                     r => r.HasOne<Genre>().WithMany()
@@ -53,7 +54,8 @@ public partial class rawg_dbContext : DbContext
                         j.IndexerProperty<int>("GenresIdGenres").HasColumnName("genres_id_genres");
                     });
 
-            entity.HasMany(d => d.ParentPlatformsIdParentPlatforms).WithMany(p => p.GamesIdGames)
+            entity.HasMany(d => d.ParentPlatformsIdParentPlatforms)
+                .WithMany(p => p.GamesIdGames)
                 .UsingEntity<Dictionary<string, object>>(
                     "GamesHasParentPlatform",
                     r => r.HasOne<ParentPlatform>().WithMany()
@@ -75,7 +77,8 @@ public partial class rawg_dbContext : DbContext
                         j.IndexerProperty<int>("ParentPlatformsIdParentPlatforms").HasColumnName("parent_platforms_id_parent_platforms");
                     });
 
-            entity.HasMany(d => d.StoresIdStores).WithMany(p => p.GamesIdGames)
+            entity.HasMany(d => d.StoresIdStores)
+                .WithMany(p => p.GamesIdGames)
                 .UsingEntity<Dictionary<string, object>>(
                     "GamesHasStore",
                     r => r.HasOne<Store>().WithMany()

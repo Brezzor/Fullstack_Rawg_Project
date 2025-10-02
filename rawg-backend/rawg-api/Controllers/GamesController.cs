@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rawg_api.Models;
+using rawg_api.Models.DTOs;
+using rawg_api.Handlers;
 
-namespace GamesController
+namespace rawg_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -16,13 +18,49 @@ namespace GamesController
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGames()
+        public async Task<IActionResult> Get(
+            [FromQuery] int? genres,
+            [FromQuery] int? platforms,
+            [FromQuery] int? stores
+        )
         {
-            return Ok(await _DbContext.Games
+            List<GameDto> gamesQuery = await _DbContext.Games
                 .Include(game => game.GenresIdGenres)
                 .Include(game => game.ParentPlatformsIdParentPlatforms)
                 .Include(game => game.StoresIdStores)
-                .ToListAsync());
+                .Select(game => DtoHandlers.GameDto(game))
+                .ToListAsync();
+
+            if (genres.HasValue)
+            {
+                gamesQuery = gamesQuery
+                    .Where(game => game.genres
+                    .Any(genre => genre.id == genres.Value))
+                    .ToList();
+            }
+
+            if (platforms.HasValue)
+            {
+                gamesQuery = gamesQuery
+                    .Where(game => game.parent_platforms
+                    .Any(parent => parent.platform
+                    .Any(platform => platform.id == platforms)))
+                    .ToList();
+            }
+
+            if (stores.HasValue)
+            {
+                gamesQuery = gamesQuery
+                    .Where(game => game.stores
+                    .Any(store => store.id == stores.Value))
+                    .ToList();
+            }
+
+            return Ok(new ResponseDto<GameDto>
+            {
+                count = gamesQuery.Count,
+                results = gamesQuery,
+            });
         }
     }
 }
