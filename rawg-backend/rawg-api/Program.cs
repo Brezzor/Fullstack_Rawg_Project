@@ -22,7 +22,7 @@ builder.Services.AddDbContext<rawg_dbContext>(options =>
 builder.Services.AddControllers()
     .AddJsonOptions(option =>
     {
-        option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
 
 var app = builder.Build();
