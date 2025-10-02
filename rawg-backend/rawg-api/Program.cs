@@ -51,8 +51,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("All");
 
-app.UseHttpsRedirection();
-
 app.MapControllers();
 
 app.MapGet("/", () =>

@@ -8,4 +8,3 @@ services:
       dockerfile: rawg-api/Dockerfile
     ports:
       - 5268:5268
-      - 7084:7084
