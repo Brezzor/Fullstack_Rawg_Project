@@ -1,0 +1,23 @@
+services:
+  web:
+    image: rawgweb
+    build:
+      context: ./rawg-react-frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./rawg-react-frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - VITE_RAWG_API_KEY=d98d2d75ee8d433790db293227bf9153
+      - VITE_API_URL=http://localhost:5268/api
+
+  api:
+    image: rawgapi
+    build:
+      context: ./rawg-backend
+      dockerfile: rawg-api/Dockerfile
+    ports:
+      - 5268:5268
