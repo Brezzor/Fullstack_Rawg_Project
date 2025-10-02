@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using rawg_api.Models;
 
@@ -35,5 +36,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.MapGet("/", () =>
+{
+    return "OK";
+})
+.WithName("Get");
 
 await app.RunAsync();
