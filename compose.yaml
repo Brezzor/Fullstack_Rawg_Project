@@ -1,0 +1,21 @@
+services:
+  web:
+    image: rawgweb
+    build:
+      context: ./rawg-react-frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./rawg-react-frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  api:
+    image: rawgapi
+    build:
+      context: ./rawg-backend
+      dockerfile: rawg-api/Dockerfile
+    ports:
+      - 5268:5268
